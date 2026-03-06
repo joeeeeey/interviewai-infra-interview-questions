@@ -1,44 +1,62 @@
-# Infra 面试题（Datadog Read-only）
+# Infra Interview Assignment (Datadog Read-only)
 
-这个目录可直接作为 GitHub Public Repo 的内容，用于 Infra / Observability 面试作业。
+## Context
+You are given read-only Datadog access for service `interviewai-core`.
 
-核心目标：在陌生服务上下文中，考察候选人的证据驱动分析能力、排障优先级判断能力、以及把个人方法沉淀成团队 workflow 的能力。
+Known facts only:
+- Datadog has logs, metrics, and APM traces for this service.
+- Business cares about latency signals like `chatFirstTimeToken`.
+- The system has both websocket/socket behavior and REST API behavior.
+- No additional architecture documents will be provided.
 
-## 仓库特点
+You may use any AI-assisted workflow (ChatGPT, Claude, Cursor, scripts, etc.).
+We evaluate your investigation quality, evidence chain, and operational thinking.
 
-- 题目按 `Q1 -> Q2 -> Q3` 递进。
-- 提供 `makrodnw`（你要求的入口）用于逐题展示。
-- 明确只读与数据安全边界。
-- 默认不包含任何真实 key。
+## Global Constraints
+- Read-only only: do not create/modify/delete any Datadog resources.
+- Evidence required: conclusions must map to concrete logs/metrics/traces.
+- Separate clearly: Fact vs Inference vs Assumption vs To-validate.
+- Security: do not include secrets, tokens, PII, or full sensitive payloads.
 
-## 目录结构
+## Q1: Service Understanding and Health Model
+Deliver:
+1. Service Overview (<= 1 page)
+2. 3-5 key health indicators (SLI candidates)
+3. Top 3 risks (trigger, impact, evidence, missing validation)
+4. Runbook v0.1 for oncall first response
 
-- `makrodnw.md`: 给候选人的主入口（可直接发链接）
-- `questions/`: 三道题的详细说明
-- `templates/submission-template.md`: 候选人提交模板
-- `scripts/show_question.sh`: 逐题展示工具（支持 `next`）
-- `scripts/self_attempt.py`: 用本地临时 key 做一次“候选人自测”并生成产出
-- `tmp-cred.example.md`: 临时 key 文件格式示例
+## Q2: Top Error Analysis (Recent Window)
+Deliver:
+1. Top 10 high-value error logs or error patterns
+2. Error taxonomy / clustering
+3. Noise vs User-impact judgment with evidence
+4. Prioritized investigation plan (with rationale)
 
-## 快速使用
+Notes:
+- If error volume is large, pattern-based grouping is preferred.
+- If API rate limiting occurs (e.g., 429), show how you handle throttling/retry.
 
-```bash
-# 1) 查看题目（逐题）
-make makrodnw          # 默认显示下一题（next）
-make q1
-make q2
-make q3
+## Q3: Convert Your Method into a Reusable AI Skill/Workflow (Highest Weight)
+Deliver:
+1. Skill/workflow goal
+2. Inputs (service, time window, thresholds, focus dimensions)
+3. Data sources/APIs used
+4. Output schema/template
+5. What can be automated vs what requires human review
+6. Risks/limitations and guardrails
+7. How the team should run and reuse it
 
-# 2) 候选人提交模板
-cat templates/submission-template.md
+## Submission Format
+Submit one document (Markdown or PDF) with this structure:
+1. Q1 - Service Overview & Runbook
+2. Q2 - Error Analysis
+3. Q3 - Skill / Workflow Spec
+4. Appendix - Evidence References (queries/screenshots/trace links)
 
-# 3) 面试官本地自测（需要本地 tmp-cred.md，且不会提交）
-make self-attempt
-```
-
-## 安全说明
-
-- `tmp-cred.md` 已加入 `.gitignore`，不会被提交。
-- `artifacts/`（本地跑题产出）已加入 `.gitignore`，避免误提交真实观测数据。
-- `draft.md` 与 `interviewer/` 为内部资料，默认不提交到 public repo。
-- 公开仓库仅保留题目与模板，不包含任何真实环境截图/日志原文。
+## Evaluation Rubric (What we care about)
+- Speed and quality of convergence in an unfamiliar system
+- Evidence-backed reasoning (not opinion-only conclusions)
+- Signal selection quality (what matters vs what is noise)
+- User-impact judgment and prioritization
+- Practical runbook quality
+- Reusability and safety of your workflow abstraction
