@@ -1,0 +1,16 @@
+# Local secrets
+/tmp-cred.md
+.env
+.env.*
+
+# Local outputs
+/artifacts/
+/.candidate-progress
+
+# Internal-only docs
+/draft.md
+/interviewer/
+
+# Misc
+.DS_Store
+*.log
