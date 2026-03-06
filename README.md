@@ -53,6 +53,20 @@ Submit one document (Markdown or PDF) with this structure:
 3. Q3 - Skill / Workflow Spec
 4. Appendix - Evidence References (queries/screenshots/trace links)
 
+## Submission via Pull Request (Required)
+Please submit your assignment through a GitHub Pull Request to this repository.
+
+Required PR content:
+1. Add your submission as a single file under `submissions/<your-name-or-id>.md`
+2. Include only sanitized evidence references (no secrets, no full sensitive payloads)
+3. In PR description, include:
+   - time window used for analysis
+   - tools/workflow used
+   - any assumptions that could not be fully validated
+
+PR title format:
+- `Candidate Submission - <your-name-or-id>`
+
 ## Evaluation Rubric (What we care about)
 - Speed and quality of convergence in an unfamiliar system
 - Evidence-backed reasoning (not opinion-only conclusions)
